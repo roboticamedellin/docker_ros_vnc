@@ -24,7 +24,7 @@ RUN apt update && apt install -y \
 
 COPY /install_ros_noetic.sh ${WS}/install_ros_noetic.sh
 RUN chmod +x ${WS}/install_ros_noetic.sh
-RUN ${WS}/install_ros_noetic.sh ${ROS_DISTRO} ${WS}
+RUN if [ ${OS} != "linux" ]; then ${WS}/install_ros_noetic.sh ${ROS_DISTRO} ${WS}; fi
 
 RUN mkdir -p ${WS}/src && \
     cd ${WS}/src && \
