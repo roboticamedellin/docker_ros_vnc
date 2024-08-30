@@ -11,6 +11,8 @@ docker run --privileged --rm -it --gpus all \
     -e XAUTHORITY \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $XAUTHORITY:$XAUTHORITY \
+    -p 5901:5900 \
+    -p 6080:80 \
     --net=host \
     -t \
     ${DOCKER_IMAGE_NAME} 
