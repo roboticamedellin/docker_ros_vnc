@@ -11,7 +11,6 @@ docker run --privileged --rm -it --gpus all \
     -e XAUTHORITY \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $XAUTHORITY:$XAUTHORITY \
-    --mount type=bind,source=${PROJECT_ROOT},target=/waver_ws/src \
     --net=host \
     -t \
     ${DOCKER_IMAGE_NAME} 
