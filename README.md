@@ -1,1 +1,1 @@
-# WAVER_VNC_ROS
+# docker_ros_vnc
