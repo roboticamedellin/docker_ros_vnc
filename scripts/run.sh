@@ -4,7 +4,9 @@ PROJECT_ROOT="$(cd "$(dirname "$0")"; cd ..; pwd)"
 source ${PROJECT_ROOT}/config.sh
 
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
-if [ "$OS" == "darwin" ] || [ "$(uname -o | tr '[:upper:]' '[:lower:]')" == "msys" ]; then
+OS_SIMPLE=${OS:0:1}
+
+if [ "$OS_SIMPLE" == "d" ] || [ "$OS_SIMPLE" == "m" ]; then
     docker run -it --rm \
         --name $CONTAINER_NAME \
         -p 6080:80 \
