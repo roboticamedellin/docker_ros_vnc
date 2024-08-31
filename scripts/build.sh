@@ -16,9 +16,9 @@ case "${OS_SIMPLE}-${ARCH}" in
         IMAGE=${VNC_IMAGE}
         ;;
     "d-arm64"|"m-arm64")
-        IMAGE=${MAC_IMAGE}
+        IMAGE=${ARM_IMAGE}
         ;;
-    "l-x86_64"|"l-aarch64")
+    "l-x86_64"|"l-aarch64"|"l-arm64")
         IMAGE=${ROS_IMAGE}
         ;;
     *)
