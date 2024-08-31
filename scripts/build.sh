@@ -45,4 +45,9 @@ else
     exit 1
 fi
 
+echo "OS: ${OS}"
+echo "ARCH: ${ARCH}"
+echo "WS: ${WS}"
+echo "IMAGE: ${IMAGE}"
+
 docker build --build-arg IMAGE=${IMAGE} --build-arg OS=${OS} --build-arg WS=${WS} -t ${DOCKER_IMAGE_NAME} .
