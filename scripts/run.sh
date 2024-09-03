@@ -7,16 +7,16 @@ OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 OS_SIMPLE=${OS:0:1}
 
 if [ "$OS_SIMPLE" == "d" ] || [ "$OS_SIMPLE" == "m" ]; then
-    #missing line: --mount ${PROJECT_ROOT}/${WS_ROS}:/${WS_ROS}
     docker run -it --rm \
+        --name $DCONTAINER_NAME \
         -v ${PROJECT_ROOT}/${WS_ROS}:/${WS_ROS} \
-        --name $CONTAINER_NAME \
         -p 6080:80 \
         -p 5900:5900 \
-        --rm ${DOCKER_IMAGE_NAME}
+        --net=${DROS_NETWORK} \
+        --rm ${DIMAGE_NAME}
 else
     docker run --privileged --rm -it --gpus all \
-        --name $CONTAINER_NAME \
+        --name $DCONTAINER_NAME \
         -v ${PROJECT_ROOT}/${WS_ROS}:/${WS_ROS} \
         -e DISPLAY \
         -e TERM \
@@ -24,7 +24,7 @@ else
         -e XAUTHORITY \
         -v /tmp/.X11-unix:/tmp/.X11-unix \
         -v $XAUTHORITY:$XAUTHORITY \
-        --net=host \
+        --net=${DROS_NETWORK} \
         -t \
-        --rm ${DOCKER_IMAGE_NAME} 
+        --rm ${DIMAGE_NAME} 
 fi

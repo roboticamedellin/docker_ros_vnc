@@ -7,8 +7,6 @@ ARG WS_ROS
 ENV DEBIAN_FRONTEND=noninteractive
 ENV RESOLUTION=1820x880
 ENV ROS_DISTRO=noetic
-ENV USER=root
-ENV WS=/${WS_ROS}
 WORKDIR ${WS}
 
 RUN if [ "${OS}" != "linux" ]; then \
@@ -34,13 +32,6 @@ RUN apt update && apt install -y \
     iputils-ping \
     net-tools
 
-# RUN mkdir -p ${WS}/src && \
-#     cd ${WS}/src && \
-#     git clone https://github.com/GGomezMorales/waver.git && \
-#     cd ${WS} && \
-#     rosdep update && \
-#     rosdep install --from-paths src --ignore-src -r -y
-
-# RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
-# RUN echo "source ${WS}/devel/setup.bash" >> ~/.bashrc
-RUN echo "alias sros='source /opt/ros/${ROS_DISTRO}/setup.bash ; catkin build ; source ${WS}/devel/setup.bash'" >> ~/.bashrc
+RUN echo "alias ftimeros='cd /${WS_ROS} && rosdep update && rosdep install --from-paths src --ignore-src -r -y'" >> ~/.bashrc
+RUN echo "alias bros='catkin build'" >> ~/.bashrc
+RUN echo "alias sros='source /opt/ros/${ROS_DISTRO}/setup.bash ; source /${WS_ROS}/devel/setup.bash'" >> ~/.bashrc
