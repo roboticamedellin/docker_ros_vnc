@@ -7,13 +7,17 @@ OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 OS_SIMPLE=${OS:0:1}
 
 if [ "$OS_SIMPLE" == "d" ] || [ "$OS_SIMPLE" == "m" ]; then
+    #missing line: --mount ${PROJECT_ROOT}/${WS_ROS}:/${WS_ROS}
     docker run -it --rm \
+        -v ${PROJECT_ROOT}/${WS_ROS}:/${WS_ROS} \
         --name $CONTAINER_NAME \
         -p 6080:80 \
-        ${DOCKER_IMAGE_NAME}
+        -p 5900:5900 \
+        --rm ${DOCKER_IMAGE_NAME}
 else
     docker run --privileged --rm -it --gpus all \
         --name $CONTAINER_NAME \
+        -v ${PROJECT_ROOT}/${WS_ROS}:/${WS_ROS} \
         -e DISPLAY \
         -e TERM \
         -e QT_X11_NO_MITSHM=1 \
@@ -22,5 +26,5 @@ else
         -v $XAUTHORITY:$XAUTHORITY \
         --net=host \
         -t \
-        ${DOCKER_IMAGE_NAME} 
+        --rm ${DOCKER_IMAGE_NAME} 
 fi
