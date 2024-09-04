@@ -13,9 +13,9 @@ WORKDIR ${WS}
 
 RUN if [ "${OS}" != "linux" ]; then \
         cd /root && \
-        apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E88979FB9B30ACF2 && \
+        apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E88979FB9B30ACF2; \
         apt update && \
-        apt install wget -y && \
+        apt install wget dirmngr gnupg2 -y && \
         wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/install_ros_noetic.sh && \
         wget https://raw.githubusercontent.com/GGomezMorales/robotis_tools/master/sros.sh && \
         chmod +x install_ros_noetic.sh sros.sh && \
