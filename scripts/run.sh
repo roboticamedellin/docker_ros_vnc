@@ -8,21 +8,21 @@ OS_SIMPLE=${OS:0:1}
 
 if [ "$OS_SIMPLE" == "d" ] || [ "$OS_SIMPLE" == "m" ]; then
     docker run -it --rm \
-        --name $CONTAINER_NAME \
+        --name ${DCONTAINER_NAME} \
         -p 6080:80 \
-        --mount type=bind,source=${PROJECT_ROOT}/src/,target=/${WS_ROS}/src/ \
-        ${DOCKER_IMAGE_NAME}
+        --mount type=bind,source=${PROJECT_ROOT}/${WS_ROS}/,target=/${WS_ROS}/ \
+        ${DIMAGE_NAME}
 else
     docker run --privileged --rm -it --gpus all \
-        --name $CONTAINER_NAME \
+        --name ${DCONTAINER_NAME} \
         -e DISPLAY \
         -e TERM \
         -e QT_X11_NO_MITSHM=1 \
         -e XAUTHORITY \
         -v /tmp/.X11-unix:/tmp/.X11-unix \
         -v $XAUTHORITY:$XAUTHORITY \
-        --net=host \
-        --mount type=bind,source=${PROJECT_ROOT}/src/,target=/${WS_ROS}/src/ \
+        --net=${DROS_NETWORK} \
+        --mount type=bind,source=${PROJECT_ROOT}/${WS_ROS},target=/${WS_ROS} \
         -t \
-        ${DOCKER_IMAGE_NAME} 
+        ${DIMAGE_NAME}
 fi

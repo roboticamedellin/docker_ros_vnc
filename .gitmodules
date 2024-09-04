@@ -1,0 +1,3 @@
+[submodule "catkin_ws/src/waver"]
+	path = catkin_ws/src/waver
+	url = https://github.com/GGomezMorales/waver.git

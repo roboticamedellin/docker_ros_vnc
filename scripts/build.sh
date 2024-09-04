@@ -29,4 +29,4 @@ esac
 
 echo "Building for OS: ${OS}, Arch: ${ARCH}, Image: ${IMAGE}"
 
-docker build --build-arg IMAGE=${IMAGE} --build-arg OS=${OS} --build-arg WS_ROS=${WS_ROS} -t ${DOCKER_IMAGE_NAME} .
+docker build --build-arg IMAGE=${IMAGE} --build-arg OS=${OS} --build-arg WS_ROS=${WS_ROS} -t ${DIMAGE_NAME} .
