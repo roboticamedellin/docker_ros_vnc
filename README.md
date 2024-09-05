@@ -5,18 +5,6 @@ This repository provides a Dockerised environment for running **ROS Noetic** wit
 - On **Linux**, the setup uses the system's **X11 server** to provide seamless graphical application support.
 - For **macOS** and **Windows** users, a **VNC server** is used to provide remote access to the ROS environment and its graphical tools, ensuring a consistent and accessible interface across platforms.
 
-## Table of Contents
-- [Prerequisites](#prerequisites)
-  - [Installing Docker](#installing-docker)
-  - [Installing Git](#installing-git)
-- [Cloning the Repository](#cloning-the-repository)
-  - [Handling Submodules](#handling-submodules)
-- [Building Docker Images](#building-docker-images)
-  - [Switching Docker Images](#switching-docker-images)
-- [Running the Container](#running-the-container)
-- [Contributing](#contributing)
-- [License](#license)
-
 ---
 
 ## Prerequisites
@@ -74,4 +62,16 @@ git --version
     ./scripts/run.sh
     ```
 
-Browse http://127.0.0.1:6080/
+## Accessing the Docker container
+
+Depending on your operating system, you can access the Docker container as follows:
+
+- **For Linux:**  
+  The terminal is directly accessible when you run the `./scripts/run.sh` file, providing seamless interaction with the container.
+
+- **For macOS or Windows:**  
+  You can access the container using **noVNC** through your browser. After running the container, open the following link in your browser:
+
+  [http://127.0.0.1:6080/](http://127.0.0.1:6080/)
+  
+  to access the ROS environment with a graphical interface.
