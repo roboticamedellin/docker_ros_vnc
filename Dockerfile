@@ -12,33 +12,27 @@ ENV WS=/${WS_ROS}
 WORKDIR ${WS}
 
 RUN if [ "${OS}" != "linux" ]; then \
-        wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/install_ros_noetic.sh && \
-        chmod +x install_ros_noetic.sh && \
-        ./install_ros_noetic.sh; \
-    fi
-
-RUN if [ "${OS}" != "linux" ]; then \
+        cd /root && \
         apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E88979FB9B30ACF2; \
+        apt update && \
+        apt install wget dirmngr gnupg2 -y && \
+        wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/install_ros_noetic.sh && \
+        wget https://raw.githubusercontent.com/GGomezMorales/robotis_tools/master/sros.sh && \
+        chmod +x install_ros_noetic.sh sros.sh && \
+        ./install_ros_noetic.sh; \
     fi
 
 RUN apt update && apt install -y \
     python3-catkin-tools \
     python3-rosinstall \
-    wget \
-    curl \
     git \
     nano \
     graphviz \
     iputils-ping \
     net-tools
 
-RUN mkdir -p ${WS}/src && \
-    cd ${WS}/src && \
-    git clone https://github.com/GGomezMorales/waver.git && \
-    cd ${WS} && \
-    rosdep update && \
-    rosdep install --from-paths src --ignore-src -r -y
-
 RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
 RUN echo "source ${WS}/devel/setup.bash" >> ~/.bashrc
-RUN echo "alias sros='source /opt/ros/${ROS_DISTRO}/setup.bash ; catkin build ; source ${WS}/devel/setup.bash'" >> ~/.bashrc
+RUN echo "alias ftimeros='cd ${WS} && rosdep update && rosdep install --from-paths src --ignore-src -r -y'" >> ~/.bashrc
+RUN echo "alias sros='source /opt/ros/${ROS_DISTRO}/setup.bash ; source ${WS}/devel/setup.bash'" >> ~/.bashrc
+RUN echo "alias bros='catkin build'" >> ~/.bashrc
