@@ -5,14 +5,12 @@ FROM ${IMAGE}
 ARG OS
 ARG WS_ROS
 ENV DEBIAN_FRONTEND=noninteractive
-ENV RESOLUTION=1820x880
 ENV ROS_DISTRO=noetic
-ENV USER=root
 ENV WS=/${WS_ROS}
 WORKDIR ${WS}
 
 RUN if [ "${OS}" != "linux" ]; then \
-        cd /root && \
+        # cd /root && \
         apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E88979FB9B30ACF2; \
         apt update && \
         apt install wget dirmngr gnupg2 -y && \
@@ -31,8 +29,17 @@ RUN apt update && apt install -y \
     iputils-ping \
     net-tools
 
+USER root
+ENV RESOLUTION=1820x880
+
 RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
 RUN echo "source ${WS}/devel/setup.bash" >> ~/.bashrc
 RUN echo "alias ftimeros='cd ${WS} && rosdep update && rosdep install --from-paths src --ignore-src -r -y'" >> ~/.bashrc
 RUN echo "alias sros='source /opt/ros/${ROS_DISTRO}/setup.bash ; source ${WS}/devel/setup.bash'" >> ~/.bashrc
 RUN echo "alias bros='catkin build'" >> ~/.bashrc
+
+RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> /root/.bashrc
+RUN echo "source ${WS}/devel/setup.bash" >> /root/.bashrc
+RUN echo "alias ftimeros='cd ${WS} && rosdep update && rosdep install --from-paths src --ignore-src -r -y'" >> /root/.bashrc
+RUN echo "alias sros='source /opt/ros/${ROS_DISTRO}/setup.bash ; source ${WS}/devel/setup.bash'" >> /root/.bashrc
+RUN echo "alias bros='catkin build'" >> /root/.bashrc
