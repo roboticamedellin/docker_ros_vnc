@@ -5,18 +5,18 @@ FROM ${IMAGE}
 ARG OS
 ARG WS_ROS
 ENV DEBIAN_FRONTEND=noninteractive
+ENV RESOLUTION=1820x880
 ENV ROS_DISTRO=noetic
+ENV USER=root
 ENV WS=/${WS_ROS}
 WORKDIR ${WS}
 
 RUN if [ "${OS}" != "linux" ]; then \
-        # cd /root && \
         apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E88979FB9B30ACF2; \
         apt update && \
         apt install wget dirmngr gnupg2 -y && \
         wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/install_ros_noetic.sh && \
-        wget https://raw.githubusercontent.com/GGomezMorales/robotis_tools/master/sros.sh && \
-        chmod +x install_ros_noetic.sh sros.sh && \
+        chmod +x install_ros_noetic.sh && \
         ./install_ros_noetic.sh; \
     fi
 
@@ -30,13 +30,6 @@ RUN apt update && apt install -y \
     net-tools
 
 USER root
-ENV RESOLUTION=1820x880
-
-RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
-RUN echo "source ${WS}/devel/setup.bash" >> ~/.bashrc
-RUN echo "alias ftimeros='cd ${WS} && rosdep update && rosdep install --from-paths src --ignore-src -r -y'" >> ~/.bashrc
-RUN echo "alias sros='source /opt/ros/${ROS_DISTRO}/setup.bash ; source ${WS}/devel/setup.bash'" >> ~/.bashrc
-RUN echo "alias bros='catkin build'" >> ~/.bashrc
 
 RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> /root/.bashrc
 RUN echo "source ${WS}/devel/setup.bash" >> /root/.bashrc
