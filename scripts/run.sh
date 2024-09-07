@@ -13,7 +13,7 @@ if [ "$OS_SIMPLE" == "d" ] || [ "$OS_SIMPLE" == "m" ]; then
         --mount type=bind,source=${PROJECT_ROOT}/${WS_ROS}/,target=/${WS_ROS}/ \
         ${DIMAGE_NAME}
 else
-    docker run --privileged --rm -it --gpus all \
+    docker run --privileged --rm -it \
         --name ${DCONTAINER_NAME} \
         -e DISPLAY \
         -e TERM \
