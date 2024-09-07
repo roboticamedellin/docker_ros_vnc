@@ -52,7 +52,7 @@ git --version
     After cloning the repository and initializing the submodules, you can build the Docker image using the provided `Dockerfile`. Run the following command in the project root:
     
     ```bash
-    ./scripts/bash.sh
+    ./scripts/build.sh
     ```
 
 4. **Run the Docker container:**
