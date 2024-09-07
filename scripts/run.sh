@@ -10,7 +10,6 @@ if [ "$OS_SIMPLE" == "d" ] || [ "$OS_SIMPLE" == "m" ]; then
     docker run -it --rm \
         --name ${DCONTAINER_NAME} \
         -p 6080:80 \
-        -p 5901:5900 \
         --mount type=bind,source=${PROJECT_ROOT}/${WS_ROS}/,target=/${WS_ROS}/ \
         ${DIMAGE_NAME}
 else
