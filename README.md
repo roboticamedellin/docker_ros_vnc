@@ -75,3 +75,11 @@ Depending on your operating system, you can access the Docker container as follo
   [http://127.0.0.1:6080/](http://127.0.0.1:6080/)
   
   to access the ROS environment with a graphical interface.
+
+## License
+MIT
+
+## Authors
+[Gustavo Gomez Morales](https://www.linkedin.com/in/ggomezmorales/)
+[Alejandro Gomez Flórez](https://www.linkedin.com/in/aldajo92)
+[Juan Manuel Gomez Vásquez](https://www.linkedin.com/in/juan-manuel-g%C3%B3mez-v%C3%A1squez-97366a171/)
