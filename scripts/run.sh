@@ -7,13 +7,14 @@ OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 OS_SIMPLE=${OS:0:1}
 
 if [ "$OS_SIMPLE" == "d" ] || [ "$OS_SIMPLE" == "m" ]; then
-    docker run -it --rm \
+    docker run \
         --name ${DCONTAINER_NAME} \
         -p 6080:80 \
         --mount type=bind,source=${PROJECT_ROOT}/${WS_ROS}/,target=/${WS_ROS}/ \
+        --rm \
         ${DIMAGE_NAME}
 else
-    docker run --privileged --rm -it \
+    docker run --privileged -it \
         --name ${DCONTAINER_NAME} \
         -e DISPLAY \
         -e TERM \
@@ -24,5 +25,6 @@ else
         -v ${PROJECT_ROOT}/${WS_ROS}:/${WS_ROS} \
         --net=${DROS_NETWORK} \
         -t \
+        --rm \
         ${DIMAGE_NAME}
 fi
